@@ -1,12 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Spacer from '../components/Spacer';
+import { StyleSheet } from "react-native";
+import { Text } from "react-native-elements";
+import { SafeAreaView } from "react-navigation";
+import Spacer from "../components/Spacer";
+import Map from "../components/Map";
 
 const TrackCreateScreen = () => {
   return (
-    <Spacer>
-      <Text style={{fontSize: 48}}>Track Create Screen</Text>
-    </Spacer>
+    <SafeAreaView forceInset={{ top: "always" }}>
+      <Text h2>Track Create Screen</Text>
+      <Map />
+    </SafeAreaView>
   );
 };
 

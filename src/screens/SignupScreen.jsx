@@ -1,41 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
-import { Input, Text, Button } from "react-native-elements";
-import Spacer from "../components/Spacer";
+import { NavigationEvents } from "react-navigation";
+import { Context as AuthContext } from "../context/AuthContext";
+import { Button } from "react-native-elements";
+import AuthForm from "../components/AuthFrom";
 
 const SignupScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { state, signup, clearErrorMessage } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
-      <Spacer>
-        <Text h3> Sing Up for Tracker </Text>
-      </Spacer>
-      <Spacer>
-        <Input
-          autoCapitalize="none"
-          autoCorrect={false}
-          label="Email"
-          value={email}
-          placeholder="example@example.com"
-          onChangeText={(newEmail) => setEmail(newEmail)}
-        />
-      </Spacer>
-      <Spacer>
-        <Input
-          secureTextEntry
-          autoCapitalize="none"
-          autoCorrect={false}
-          label="Password"
-          value={password}
-          placeholder="pass1234"
-          onChangeText={(newPassword) => setPassword(newPassword)}
-        />
-      </Spacer>
-      <Spacer>
-        <Button title="Sign Up" onPress={() => console.log("click")} />
-      </Spacer>
+      <NavigationEvents onWillBlur={clearErrorMessage} />
+      <AuthForm
+        errorMessage={state.errorMessage}
+        headerText="Sing Up for Tracker"
+        submitButtonText="Sing Up"
+        onSubmit={signup}
+      />
+      <Button
+        type="clear"
+        title="Already have an account? Sign in instead"
+        onPress={() => navigation.navigate("Signin")}
+      />
     </View>
   );
 };
@@ -53,5 +39,4 @@ const styles = StyleSheet.create({
     marginBottom: 200,
   },
 });
-
 export default SignupScreen;
